@@ -49,7 +49,10 @@ class MainActivity : ComponentActivity() {
                 }
                 ScreenState.RESULT -> {
                     result?.let {
-                        ResultScreen(result = it)
+                        ResultScreen(
+                            result = it,
+                            onRetryClick = viewModel::reset
+                        )
                     }
                 }
             }

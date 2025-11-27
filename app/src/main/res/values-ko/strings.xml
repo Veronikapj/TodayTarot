@@ -12,6 +12,7 @@
     <string name="result_screen_worry_title">당신의 고민을 위해 카드가 속삭여요 💌</string>
     <string name="result_screen_mission_title">⭐ 행운을 부르는 오늘의 퀘스트</string>
     <string name="result_screen_card_name">THE SUN</string>
+    <string name="result_screen_retry_button">처음부터 다시하기</string>
 
     <string name="mock_card_name">THE SUN</string>
     <string name="mock_card_description">따스한 햇살처럼 당신의 삶에도 반짝이는 기쁨이 찾아오고 있어요! 🌞 움츠러들었던 마음을 활짝 펴보세요. 고민은 눈 녹듯 사라지고, 기분 좋은 성공이 기다리고 있답니다. 당신은 충분히 빛나는 사람이에요!</string>

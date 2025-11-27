@@ -15,6 +15,7 @@
     <string name="result_screen_worry_title">For your worry…</string>
     <string name="result_screen_mission_title">⭐ Today\'s Lucky Mission</string>
     <string name="result_screen_card_name">THE SUN</string>
+    <string name="result_screen_retry_button">Try Again</string>
 
     <!-- TarotAiManager (Mock Data) -->
     <string name="mock_card_name">THE SUN</string>

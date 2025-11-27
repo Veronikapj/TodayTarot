@@ -41,11 +41,23 @@ class TarotAiManager(private val context: Context) {
         "page_of_pentacles", "knight_of_pentacles", "queen_of_pentacles", "king_of_pentacles"
     )
 
+    // 🛡️ AI가 미션을 빼먹었을 때 사용할 '비상용 미션 리스트'
+    private val fallbackMissions = listOf(
+        "좋아하는 노래 한 곡 듣고 시작하기 🎵",
+        "지금 당장 창문 열고 공기 마시기 🌿",
+        "거울 보고 나에게 윙크 한번 날리기 😉",
+        "가장 최근 대화한 친구에게 이모티콘 보내기 💌",
+        "물 한 잔 시원하게 마시기 💧",
+        "1분 동안 아무 생각 없이 멍 때리기 😶‍🌫️",
+        "기지개 쭉 펴고 어깨 돌리기 💪"
+    )
+
     private var llmInference: LlmInference? = null
 
     // 모델 파일이 저장된 경로 (Device File Explorer로 넣은 경로)
     // 실제 배포시에는 assets에서 내부 저장소로 복사하는 로직이 필요하지만, 샘플앱에선 절대경로 사용 추천
-    private val modelPath = "/data/local/tmp/gemma-2b-it-gpu-int4.bin"
+//    private val modelPath = "/data/local/tmp/gemma-2b-it-gpu-int4.bin"
+    private val modelPath = "/data/local/tmp/gemma2-2b-it-gpu-int8.bin"
 
     // AI 엔진 초기화 (앱 시작시 혹은 최초 실행시 호출 필요)
     suspend fun initialize() {
@@ -73,10 +85,10 @@ class TarotAiManager(private val context: Context) {
         // 모델이 로드되지 않았으면 초기화 시도
         if (llmInference == null) initialize()
 
-        // 🔀 2. 랜덤으로 카드 한 장 뽑기
+        // 랜덤으로 카드 한 장 뽑기
         val selectedCardKey = tarotDeck.random() // 예: "ace_of_cups"
 
-        // 📝 3. AI에게 알려주기 위해 이름을 예쁘게 변환 (예: "Ace of cups")
+        // AI에게 알려주기 위해 이름을 예쁘게 변환 (예: "Ace of cups")
         val readableCardName = selectedCardKey.replace("_", " ")
             .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
 
@@ -91,39 +103,39 @@ class TarotAiManager(private val context: Context) {
             )
         }
 
-        // 1. 프롬프트 엔지니어링 (한국어로 답변 유도 + 포맷 지정)
+        // 프롬프트 엔지니어링 (한국어로 답변 유도 + 포맷 지정)
+        // TarotAiManager.kt 내부
+
         val prompt = """
-            You are a warm and mystical Tarot reader.
-            User's worry: "$worry"
-            Card: "$readableCardName
+            <start_of_turn>user
+            Role: Tarot Reader.
+            Task: Create a NEW Korean response based on the user's card and worry.
+            Input Worry: "$worry"
+            Input Card: "$readableCardName"
             
-            Please respond in Korean.
-            Format your response exactly like this:
-            [Cheering Message] @ [Funny Lucky Mission]
+            --- Example Start ---
+            Input Worry: "내일 시험이라 너무 떨려."
+            Input Card: "The Sun"
+            Output: 걱정하지 마! The Sun 카드는 최고의 성공을 의미해. 너의 노력은 빛을 발할 거야. 자신감을 가져! 
+            --- Example End ---
             
-            Do not include any other text.
-            Example:
-            걱정하지 마세요, 태양이 당신을 비추고 있어요. @ 좋아하는 노래 듣기
-            
-            Response:
+            Output:
+            <end_of_turn>
+            <start_of_turn>model
         """.trimIndent()
 
         try {
-            // 2. AI 추론 실행
-            val response = llmInference?.generateResponse(prompt) ?: ""
+            // AI 추론 실행
+            var response = llmInference?.generateResponse(prompt) ?: ""
 
-            // 3. 결과 파싱 ("@" 문자로 메시지와 미션 분리)
-            val parts = response.split("@")
-
-            val message = parts.getOrNull(0)?.trim()
-                ?: context.getString(R.string.ai_default_message)
-            val mission = parts.getOrNull(1)?.trim()
-                ?: context.getString(R.string.ai_default_mission)
+            // 청소: 앞뒤 군더더기 제거
+            if (response.contains("Output:")) response = response.substringAfterLast("Output:")
+            response = response.trim()
 
             FortuneResult(
                 cardName = selectedCardKey, // 실제 앱에선 뽑은 카드 이름을 넣어야 함
-                cardDescription = message,
-                mission = mission
+                cardDescription = response,
+                mission = fallbackMissions.random()
             )
         } catch (e: Exception) {
             e.printStackTrace()

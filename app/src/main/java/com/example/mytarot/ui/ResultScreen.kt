@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
@@ -29,11 +31,14 @@ import com.example.mytarot.model.FortuneResult
 import pilju.android.todaytarot.R
 import pilju.android.todaytarot.ui.theme.BeigeBackground
 import pilju.android.todaytarot.ui.theme.MissionYellow
+import pilju.android.todaytarot.ui.theme.PrimaryYellow
 import pilju.android.todaytarot.ui.theme.TextDark
 
 @Composable
-fun ResultScreen(result: FortuneResult) {
-
+fun ResultScreen(
+    result: FortuneResult,
+    onRetryClick: () -> Unit
+) {
     val context = LocalContext.current
 
     // 1. 이미지 리소스 ID 찾기 (최적화를 위해 remember 사용)
@@ -110,6 +115,25 @@ fun ResultScreen(result: FortuneResult) {
                     fontFamily = FontFamily.Cursive // 필기체 느낌 (기본 제공 폰트)
                 )
             }
+        }
+
+        Spacer(modifier = Modifier.height(32.dp))
+
+        // 다시하기 버튼
+        Button(
+            onClick = onRetryClick,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp),
+            colors = ButtonDefaults.buttonColors(containerColor = PrimaryYellow),
+            shape = RoundedCornerShape(50) // 완전 둥근 버튼
+        ) {
+            Text(
+                text = stringResource(R.string.result_screen_retry_button),
+                color = TextDark,
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold
+            )
         }
 
         Spacer(modifier = Modifier.height(40.dp))
