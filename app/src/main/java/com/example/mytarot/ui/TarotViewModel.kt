@@ -1,6 +1,7 @@
 package com.example.mytarot.ui
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mytarot.ai.TarotAiManager
 import com.example.mytarot.model.FortuneResult
@@ -11,8 +12,8 @@ import kotlinx.coroutines.launch
 // 화면 단계 정의
 enum class ScreenState { INPUT, SELECTION, LOADING, RESULT }
 
-class TarotViewModel : ViewModel() {
-    private val aiManager = TarotAiManager()
+class TarotViewModel(application: Application) : AndroidViewModel(application) {
+    private val aiManager = TarotAiManager(application.applicationContext)
 
     private val _screenState = MutableStateFlow(ScreenState.INPUT)
     val screenState = _screenState.asStateFlow()

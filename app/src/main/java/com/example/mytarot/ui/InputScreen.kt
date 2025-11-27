@@ -8,9 +8,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import pilju.android.todaytarot.R
 import pilju.android.todaytarot.ui.theme.BeigeBackground
 import pilju.android.todaytarot.ui.theme.PrimaryYellow
 import pilju.android.todaytarot.ui.theme.TextDark
@@ -33,7 +35,7 @@ fun InputScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = "Tell me your worry\ntoday.",
+            text = stringResource(R.string.input_screen_title),
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             color = TextDark,
@@ -45,7 +47,7 @@ fun InputScreen(
         OutlinedTextField(
             value = worry,
             onValueChange = onWorryChange,
-            placeholder = { Text("Write down what's on your mind...") },
+            placeholder = { Text(stringResource(R.string.input_screen_placeholder)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp),
@@ -59,7 +61,7 @@ fun InputScreen(
         )
 
         Text(
-            text = "Your thoughts are safe here.",
+            text = stringResource(R.string.input_screen_disclaimer),
             color = TextGray,
             fontSize = 14.sp,
             modifier = Modifier.padding(top = 12.dp)
@@ -75,7 +77,7 @@ fun InputScreen(
             colors = ButtonDefaults.buttonColors(containerColor = PrimaryYellow),
             shape = RoundedCornerShape(50) // 완전 둥근 버튼
         ) {
-            Text("Consult the Tarot", color = TextDark, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
+            Text(stringResource(R.string.input_screen_button), color = TextDark, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
         }
     }
 }

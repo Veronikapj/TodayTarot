@@ -14,11 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mytarot.model.FortuneResult
+import pilju.android.todaytarot.R
 import pilju.android.todaytarot.ui.theme.BeigeBackground
 import pilju.android.todaytarot.ui.theme.MissionYellow
 import pilju.android.todaytarot.ui.theme.TextDark
@@ -40,13 +42,17 @@ fun ResultScreen(result: FortuneResult) {
         Card(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(8.dp),
-            modifier = Modifier.width(220.dp).height(360.dp)
+            modifier = Modifier
+                .width(220.dp)
+                .height(360.dp)
         ) {
             // res/drawable 에 'tarot_sun.jpg' 같은 이미지가 있어야 합니다.
             // 임시로 배경색만 채웁니다. 이미지가 있다면 Image 컴포넌트 사용하세요.
-            Box(modifier = Modifier.fillMaxSize().background(Color.White)) {
+            Box(modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)) {
                 // Image(painter = painterResource(id = R.drawable.the_sun), ...)
-                Text(text = "THE SUN", modifier = Modifier.align(Alignment.Center))
+                Text(text = stringResource(R.string.result_screen_card_name), modifier = Modifier.align(Alignment.Center))
             }
         }
 
@@ -55,7 +61,7 @@ fun ResultScreen(result: FortuneResult) {
         // 2. 응원 메시지 섹션
         Column(modifier = Modifier.fillMaxWidth()) {
             Text(
-                text = "For your worry...",
+                text = stringResource(R.string.result_screen_worry_title),
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = TextDark
@@ -75,11 +81,13 @@ fun ResultScreen(result: FortuneResult) {
         Card(
             colors = CardDefaults.cardColors(containerColor = MissionYellow),
             shape = RoundedCornerShape(16.dp),
-            modifier = Modifier.fillMaxWidth().shadow(4.dp, RoundedCornerShape(16.dp))
+            modifier = Modifier
+                .fillMaxWidth()
+                .shadow(4.dp, RoundedCornerShape(16.dp))
         ) {
             Column(modifier = Modifier.padding(20.dp)) {
                 Text(
-                    text = "⭐ Today's Lucky Mission",
+                    text = stringResource(R.string.result_screen_mission_title),
                     fontWeight = FontWeight.Bold,
                     color = TextDark
                 )

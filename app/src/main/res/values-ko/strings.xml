@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">오늘의 타로</string>
+
+    <!-- InputScreen -->
+    <string name="input_screen_title">오늘의 고민을 말해주세요.</string>
+    <string name="input_screen_placeholder">마음 속에 있는 것을 적어보세요…</string>
+    <string name="input_screen_disclaimer">이곳에서는 당신의 생각이 안전합니다.</string>
+    <string name="input_screen_button">타로에게 물어보기</string>
+
+    <!-- SelectScreen -->
+    <string name="select_screen_card_description">타로 카드 뒷면</string>
+    <string name="select_screen_instruction">준비가 되면 카드를 탭하세요.</string>
+
+    <!-- ResultScreen -->
+    <string name="result_screen_worry_title">당신의 고민에 대해…</string>
+    <string name="result_screen_mission_title">⭐ 오늘의 행운 미션</string>
+    <string name="result_screen_card_name">THE SUN</string>
+
+    <!-- TarotAiManager (Mock Data) -->
+    <string name="mock_card_name">THE SUN</string>
+    <string name="mock_card_description">태양이 세상을 따뜻하게 비추듯, 당신의 삶에도 기쁨과 성공의 시기가 다가오고 있습니다. 긍정적인 에너지를 받아들이고 자신감 있게 목표를 향해 나아가세요. 당신의 고민은 눈 녹듯 사라질 거예요.</string>
+    <string name="mock_mission">좋아하는 신나는 노래를 틀고 1분 동안 춤을 춰보세요!</string>
+
+    <!-- FortuneResult comment -->
+    <string name="fortune_result_card_name_example">THE SUN</string>
+
+    <!-- TarotAiManager -->
+    <string name="ai_model_not_found">모델 파일을 찾을 수 없습니다: %1$s</string>
+    <string name="ai_demo_card_name">THE DEMO</string>
+    <string name="ai_demo_description">AI 모델 파일을 찾을 수 없어서 데모 메시지를 보냅니다. /data/local/tmp/ 경로를 확인해주세요.</string>
+    <string name="ai_demo_mission">모델 파일 다운로드 받기</string>
+    <string name="ai_card_name_sun">THE SUN</string>
+    <string name="ai_default_message">당신의 앞날은 밝습니다.</string>
+    <string name="ai_default_mission">하늘을 한번 쳐다보세요.</string>
+    <string name="ai_error_card_name">ERROR</string>
+    <string name="ai_error_description">별들의 신호를 수신하지 못했어요. 다시 시도해주세요.</string>
+    <string name="ai_error_mission">심호흡 한번 하기</string>
+
+</resources>

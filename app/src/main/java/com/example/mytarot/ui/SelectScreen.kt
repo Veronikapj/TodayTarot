@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import pilju.android.todaytarot.R
@@ -27,7 +28,7 @@ fun SelectionScreen(onCardClick: () -> Unit) {
             // 카드 뒷면 이미지
             Image(
                 painter = painterResource(id = R.drawable.card),
-                contentDescription = "Tarot Card Back",
+                contentDescription = stringResource(R.string.select_screen_card_description),
                 modifier = Modifier
                     .width(200.dp)
                     .height(340.dp)
@@ -37,7 +38,7 @@ fun SelectionScreen(onCardClick: () -> Unit) {
             Spacer(modifier = Modifier.height(40.dp))
 
             Text(
-                text = "Tap the card when you are ready.",
+                text = stringResource(R.string.select_screen_instruction),
                 color = TextDark,
                 fontSize = 16.sp
             )

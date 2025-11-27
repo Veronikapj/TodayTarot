@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">todaytarot</string>
+
+    <!-- InputScreen -->
+    <string name="input_screen_title">Tell me your worry\ntoday.</string>
+    <string name="input_screen_placeholder">Write down what\'s on your mind…</string>
+    <string name="input_screen_disclaimer">Your thoughts are safe here.</string>
+    <string name="input_screen_button">Consult the Tarot</string>
+
+    <!-- SelectScreen -->
+    <string name="select_screen_card_description">Tarot Card Back</string>
+    <string name="select_screen_instruction">Tap the card when you are ready.</string>
+
+    <!-- ResultScreen -->
+    <string name="result_screen_worry_title">For your worry…</string>
+    <string name="result_screen_mission_title">⭐ Today\'s Lucky Mission</string>
+    <string name="result_screen_card_name">THE SUN</string>
+
+    <!-- TarotAiManager (Mock Data) -->
+    <string name="mock_card_name">THE SUN</string>
+    <string name="mock_card_description">태양이 세상을 따뜻하게 비추듯, 당신의 삶에도 기쁨과 성공의 시기가 다가오고 있습니다. 긍정적인 에너지를 받아들이고 자신감 있게 목표를 향해 나아가세요. 당신의 고민은 눈 녹듯 사라질 거예요.</string>
+    <string name="mock_mission">좋아하는 신나는 노래를 틀고 1분 동안 춤을 춰보세요!</string>
+
+    <!-- FortuneResult comment -->
+    <string name="fortune_result_card_name_example">THE SUN</string>
+
+    <!-- TarotAiManager -->
+    <string name="ai_model_not_found">Model file not found: %1$s</string>
+    <string name="ai_demo_card_name">THE DEMO</string>
+    <string name="ai_demo_description">Sending a demo message because the AI model file could not be found. Please check the /data/local/tmp/ path.</string>
+    <string name="ai_demo_mission">Download the model file</string>
+    <string name="ai_card_name_sun">THE SUN</string>
+    <string name="ai_default_message">Your future is bright.</string>
+    <string name="ai_default_mission">Look up at the sky once.</string>
+    <string name="ai_error_card_name">ERROR</string>
+    <string name="ai_error_description">Failed to receive the signal from the stars. Please try again.</string>
+    <string name="ai_error_mission">Take a deep breath</string>
+
 </resources>
