@@ -1,5 +1,7 @@
 package com.example.mytarot.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -10,10 +12,14 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -27,6 +33,14 @@ import pilju.android.todaytarot.ui.theme.TextDark
 
 @Composable
 fun ResultScreen(result: FortuneResult) {
+
+    val context = LocalContext.current
+
+    // 1. 이미지 리소스 ID 찾기 (최적화를 위해 remember 사용)
+    val imageResId = remember(result.cardName) {
+        getCardImageId(context, result.cardName)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -38,22 +52,19 @@ fun ResultScreen(result: FortuneResult) {
     ) {
         Spacer(modifier = Modifier.height(20.dp))
 
-        // 1. 타로 카드 이미지 (The Sun)
+        // 🎴 타로 카드 이미지 표시 영역
         Card(
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(8.dp),
             modifier = Modifier
                 .width(220.dp)
-                .height(360.dp)
         ) {
-            // res/drawable 에 'tarot_sun.jpg' 같은 이미지가 있어야 합니다.
-            // 임시로 배경색만 채웁니다. 이미지가 있다면 Image 컴포넌트 사용하세요.
-            Box(modifier = Modifier
-                .fillMaxSize()
-                .background(Color.White)) {
-                // Image(painter = painterResource(id = R.drawable.the_sun), ...)
-                Text(text = stringResource(R.string.result_screen_card_name), modifier = Modifier.align(Alignment.Center))
-            }
+            Image(
+                painter = painterResource(id = imageResId),
+                contentDescription = result.cardName,
+                contentScale = ContentScale.Crop, // 이미지를 꽉 차게 자름
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
         Spacer(modifier = Modifier.height(32.dp))
@@ -103,4 +114,25 @@ fun ResultScreen(result: FortuneResult) {
 
         Spacer(modifier = Modifier.height(40.dp))
     }
+}
+
+/**
+ * 🔍 도우미 함수: 문자열 이름으로 drawable ID 찾기
+ * 예: "the_moon" -> R.drawable.the_moon (Int)
+ */
+@SuppressLint("DiscouragedApi")
+fun getCardImageId(context: Context, cardName: String): Int {
+    // 1. 혹시 모를 공백이나 대문자를 처리 (안전장치)
+    val formattedName = cardName.lowercase().replace(" ", "_").trim()
+
+    // 2. 리소스 ID 검색
+    val resId = context.resources.getIdentifier(
+        formattedName,
+        "drawable",
+        context.packageName
+    )
+
+    // 3. 파일이 있으면 그 ID 반환, 없으면(0) 카드 뒷면 반환 (앱 죽음 방지)
+    // ⚠️ 주의: res/drawable 폴더에 'card.jpg' 파일이 꼭 있어야 합니다!
+    return if (resId != 0) resId else R.drawable.card
 }
