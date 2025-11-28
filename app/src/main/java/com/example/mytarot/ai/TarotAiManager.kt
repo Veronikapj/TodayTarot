@@ -56,9 +56,20 @@ class TarotAiManager(private val context: Context) {
 
     // 모델 파일이 저장된 경로 (Device File Explorer로 넣은 경로)
     // 실제 배포시에는 assets에서 내부 저장소로 복사하는 로직이 필요하지만, 샘플앱에선 절대경로 사용 추천
-//    private val modelPath = "/data/local/tmp/gemma-2b-it-gpu-int4.bin"
-    private val modelPath = "/data/local/tmp/gemma2-2b-it-gpu-int8.bin"
 
+
+    /**
+     * 파일 넣기
+     * adb push gemma-2b-it-gpu-int4.bin /data/local/tmp/
+     * 권한 설정
+     * adb shell chmod 644 /data/local/tmp/gemma-2b-it-gpu-int4.bin
+     * 잘 들어갔는지 확인
+     * adb shell ls -lh /data/local/tmp/
+     */
+//    private val modelPath = "/data/local/tmp/gemma-2b-it-gpu-int4.bin"
+//    private val modelPath = "/data/local/tmp/gemma3-1B-it-int4.task"
+    private val modelPath = "/data/local/tmp/gemma2-2b-it-gpu-int8.bin"
+//    private val modelPath = "/data/local/tmp/gemma-3-270m-it-int8.task"
     // AI 엔진 초기화 (앱 시작시 혹은 최초 실행시 호출 필요)
     suspend fun initialize() {
         withContext(Dispatchers.IO) {
